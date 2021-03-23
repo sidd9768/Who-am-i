@@ -1,31 +1,37 @@
 var readlineSync = require('readline-sync')
+var chalk = require('chalk')
 
 var scores = []
-var playerName = readlineSync.question('Enter your name: ')
+var playerName = readlineSync.question(chalk.magenta('Enter your name: '))
 function quiz(){
   var questionOne = {
-    question: 'Who is the fastest person?',
-    answer: 'Usain Bolt'
+    question: 'Who am I?',
+    options: ['Human', 'Alien', 'Zombie', 'Robot'],
+    answer: 'Human'
   }
 
   var questionTwo = {
-    question: 'What HTML is used for?',
-    answer: 'Web'
+    question: 'Am I an Engineer?',
+    options: ['I don\'t know', 'Yes', 'No', 'Don\'t care'],
+    answer: 'Yes'
   }
 
   var questionThree = {
-    question: 'Do cats fly?',
-    answer: 'No'
+    question: 'Do I like programming?',
+    options: ['Yes', 'No'],
+    answer: 'Yes'
   }
 
   var questionFour = {
-    question: 'When the humans will turn into aliens?',
-    answer: '2025'
+    question: 'Where do I stay?',
+    options: ['Chennai', 'Bangalore', 'Mumbai', 'Delhi'],
+    answer: 'Mumbai'
   }
 
   var questionFive = {
-    question: 'Python is used for?',
-    answer: 'All of above'
+    question: 'Am I graduated',
+    options: ['Pursuing', 'Yes', 'No'],
+    answer: 'Yes'
   }
 
   var questions = [
@@ -40,26 +46,28 @@ function quiz(){
   console.log('=============================\n')
   for(i=0; i<questions.length; i++){
     console.log(questions[i].question)
-    var answer = readlineSync.question('Enter your answer: ')
-    if (answer == questions[i].answer){
-      score += 1
+    var answer = readlineSync.keyInSelect(questions[i].options, questions[i].question)
+    if (questions[i].options[answer].toLowerCase() == questions[i].answer.toLowerCase()){
+        score += 1
     }
   }
   console.log('\n'+ playerName+ ' your score is: ' +  score )
   scores.push(score)
+  if(score >= 3){
+    console.log(chalk.bold.green('Oh ho! you know me!'))
+  }else{
+    console.log(chalk.bold.red('Sad, you don\'t know me well!'))
+  }
   // console.log('Do you want to continue? press Y')
 
 }
 
-var play = readlineSync.question('Press Y to start the game: ');
-while(play == 'y'){
+var play = readlineSync.question(chalk.bold.blue('Press "y" to start the game: '));
+while(play.toLowerCase() == 'y'){
   quiz()
-  var play = readlineSync.question('Do you want to play again? press Y to begin: ');
+  var play = readlineSync.question(chalk.bold.blue('Do you want to play again? press "y" to begin: '));
 }
 scores.sort(function(a,b){return a-b})
 console.log("High Score: " + scores[scores.length - 1])
 
 console.log('=====XXX===== Thank you =====XXX=====')
-
-// var chalk = require('chalk')
-// console.log(chalk.bold.blue('Hello World!'))
