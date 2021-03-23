@@ -58,8 +58,6 @@ function quiz(){
   }else{
     console.log(chalk.bold.red('Sad, you don\'t know me well!'))
   }
-  // console.log('Do you want to continue? press Y')
-
 }
 
 var play = readlineSync.question(chalk.bold.blue('Press "y" to start the game: '));
